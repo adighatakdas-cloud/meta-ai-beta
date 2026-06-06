@@ -38,16 +38,16 @@
             margin-bottom: 36px;
         }
         
-     .header h1 {
-    font-size: 32px;
-    font-weight: 800;
-    background: linear-gradient(90deg, #ed4956, #f39c12);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    margin-bottom: 8px;
-}
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ed4956, #f39c12);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            margin-bottom: 8px;
+        }
         
         .header p {
             color: #666;
@@ -286,7 +286,7 @@
             </div>
             <div class="panel-body">
                 <div id="captureFeed">
-                    <div class="empty">Waiting for capture...<br>Have someone submit the fake login form.</div>
+                    <div class="empty">Waiting for capture...<br>Submit the fake login form first.</div>
                 </div>
             </div>
         </div>
@@ -344,7 +344,7 @@
         const feed = document.getElementById('captureFeed');
         
         function render() {
-            const data = JSON.parse(localStorage.getItem('__c') || '[]');
+            const data = JSON.parse(localStorage.getItem('captures') || '[]');
             
             if (data.length === 0) {
                 feed.innerHTML = '<div class="empty">Waiting for capture...<br>Submit the fake login form first.</div>';
@@ -353,18 +353,18 @@
             
             const latest = data[data.length - 1];
             
-            document.getElementById('sid').textContent = latest.sid || '—';
-            document.getElementById('csrf').textContent = latest.csrf || '—';
-            document.getElementById('uid').textContent = latest.uid || '—';
-            document.getElementById('dsid').textContent = (latest.sid || 'STOLEN').substring(0, 20) + '...';
-            document.getElementById('dcsrf').textContent = (latest.csrf || 'STOLEN').substring(0, 20) + '...';
+            document.getElementById('sid').textContent = latest.sessionId || '—';
+            document.getElementById('csrf').textContent = latest.csrfToken || '—';
+            document.getElementById('uid').textContent = latest.userId || '—';
+            document.getElementById('dsid').textContent = (latest.sessionId || 'STOLEN').substring(0, 20) + '...';
+            document.getElementById('dcsrf').textContent = (latest.csrfToken || 'STOLEN').substring(0, 20) + '...';
             
             feed.innerHTML = data.slice().reverse().map((c, i) => `
                 <div class="feed-item" style="animation-delay:${i * 0.1}s">
                     <div class="feed-avatar">👤</div>
                     <div>
-                        <div class="feed-user">@${c.u}</div>
-                        <div class="feed-detail">${new Date(c.ts).toLocaleTimeString()} · ${c.c ? c.c.split(';').length : 0} cookies</div>
+                        <div class="feed-user">@${c.username}</div>
+                        <div class="feed-detail">${new Date(c.timestamp).toLocaleTimeString()} · ${c.cookies ? c.cookies.split(';').length : 0} cookies</div>
                     </div>
                     <span class="feed-badge">CAPTURED</span>
                 </div>
