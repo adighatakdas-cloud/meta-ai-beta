@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠ Security Demonstration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+        
+        .banner {
+            background: linear-gradient(90deg, #ed4956, #d63031);
+            color: white;
+            text-align: center;
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border-radius: 12px;
+            margin-bottom: 28px;
+            animation: pulse-banner 2s infinite;
+        }
+        
+        @keyframes pulse-banner {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        
+     .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ed4956, #f39c12);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 8px;
+}
+        
+        .header p {
+            color: #666;
+            font-size: 15px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 700px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+        
+        .panel {
+            background: #111118;
+            border: 1px solid #222;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .panel-head {
+            padding: 20px 24px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .panel-head h2 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        .panel-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .panel-body {
+            padding: 24px;
+        }
+        
+        .cred-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #1a1a24;
+        }
+        
+        .cred-row:last-child { border-bottom: none; }
+        
+        .cred-label {
+            font-size: 11px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .cred-value {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 13px;
+            color: #fff;
+            background: #0a0a12;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #2a2a3e;
+            max-width: 55%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .cred-value.danger {
+            color: #ed4956;
+            border-color: #ed4956;
+            animation: glow 2s infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(237, 73, 86, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(237, 73, 86, 0.4); }
+        }
+        
+        .code-block {
+            background: #050508;
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 12px;
+            line-height: 1.9;
+            color: #888;
+            border: 1px solid #1a1a24;
+            overflow-x: auto;
+        }
+        
+        .code-block .c { color: #555; }
+        .code-block .k { color: #c678dd; }
+        .code-block .s { color: #98c379; }
+        .code-block .f { color: #61afef; }
+        
+        .feed {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        
+        .feed-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            background: #0a0a12;
+            border: 1px solid #1a1a24;
+            animation: slideIn 0.4s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .feed-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .feed-user {
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+        }
+        
+        .feed-detail {
+            font-size: 12px;
+            color: #555;
+            margin-top: 2px;
+        }
+        
+        .feed-badge {
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(237, 73, 86, 0.15);
+            color: #ed4956;
+            margin-left: auto;
+        }
+        
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #444;
+            font-size: 14px;
+        }
+        
+        .tips {
+            max-width: 900px;
+            margin: 30px auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        
+        .tip {
+            background: #111118;
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .tip h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tip p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .tip-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0a0a12; }
+        ::-webkit-scrollbar-thumb { background: #2a2a3e; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="banner">⚠️ EDUCATIONAL SECURITY DEMONSTRATION — NO REAL DATA HARMED ⚠️</div>
+    
+    <div class="header">
+        <h1>🎣 PHISHING ATTACK SIMULATION</h1>
+        <p>This is what attackers see when you fall for phishing</p>
+    </div>
+    
+    <div class="grid">
+        <div class="panel">
+            <div class="panel-head">
+                <div class="panel-icon" style="background:rgba(237,73,86,0.15)">🔴</div>
+                <h2>Captured Credentials</h2>
+            </div>
+            <div class="panel-body">
+                <div id="captureFeed">
+                    <div class="empty">Waiting for capture...<br>Have someone submit the fake login form.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel">
+            <div class="panel-head">
+                <div class="panel-icon" style="background:rgba(0,100,224,0.15)">🔓</div>
+                <h2>Session Hijack Demo</h2>
+            </div>
+            <div class="panel-body">
+                <div class="cred-row">
+                    <span class="cred-label">Session ID</span>
+                    <span class="cred-value danger" id="sid">—</span>
+                </div>
+                <div class="cred-row">
+                    <span class="cred-label">CSRF Token</span>
+                    <span class="cred-value" id="csrf">—</span>
+                </div>
+                <div class="cred-row">
+                    <span class="cred-label">User ID</span>
+                    <span class="cred-value" id="uid">—</span>
+                </div>
+                
+                <div class="code-block" style="margin-top:16px">
+<span class="c">// Attacker opens Instagram</span>
+<span class="c">// DevTools → Application → Cookies</span>
+<span class="c">// Replaces cookies with YOURS:</span>
+
+<span class="k">document</span>.<span class="f">cookie</span> = <span class="s">"sessionid=<span id="dsid">STOLEN</span>; domain=.instagram.com"</span>;
+<span class="k">document</span>.<span class="f">cookie</span> = <span class="s">"csrftoken=<span id="dcsrf">STOLEN</span>; domain=.instagram.com"</span>;
+
+<span class="c">// Refreshes page...</span>
+<span class="c">// LOGGED IN AS YOU. No password. No 2FA.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tips">
+        <div class="tip">
+            <h3><span class="tip-icon" style="background:rgba(237,73,86,0.15)">🎣</span> What Happened?</h3>
+            <p>The victim visited a fake "META AI Beta" page, clicked "Continue with Instagram," and entered credentials on a page that looked exactly like Instagram. But it wasn't.</p>
+        </div>
+        <div class="tip">
+            <h3><span class="tip-icon" style="background:rgba(243,156,18,0.15)">🍪</span> Cookie Theft</h3>
+            <p>We didn't just get the password. We captured session cookies — the "golden tickets" that keep users logged in. With these, an attacker can impersonate them indefinitely.</p>
+        </div>
+        <div class="tip">
+            <h3><span class="tip-icon" style="background:rgba(49,167,59,0.15)">🛡️</span> How to Protect</h3>
+            <p>Always check the URL before entering credentials. Use password managers. Enable hardware security keys for 2FA — they can't be phished like SMS codes.</p>
+        </div>
+    </div>
+    
+    <script>
+        const feed = document.getElementById('captureFeed');
+        
+        function render() {
+            const data = JSON.parse(localStorage.getItem('__c') || '[]');
+            
+            if (data.length === 0) {
+                feed.innerHTML = '<div class="empty">Waiting for capture...<br>Submit the fake login form first.</div>';
+                return;
+            }
+            
+            const latest = data[data.length - 1];
+            
+            document.getElementById('sid').textContent = latest.sid || '—';
+            document.getElementById('csrf').textContent = latest.csrf || '—';
+            document.getElementById('uid').textContent = latest.uid || '—';
+            document.getElementById('dsid').textContent = (latest.sid || 'STOLEN').substring(0, 20) + '...';
+            document.getElementById('dcsrf').textContent = (latest.csrf || 'STOLEN').substring(0, 20) + '...';
+            
+            feed.innerHTML = data.slice().reverse().map((c, i) => `
+                <div class="feed-item" style="animation-delay:${i * 0.1}s">
+                    <div class="feed-avatar">👤</div>
+                    <div>
+                        <div class="feed-user">@${c.u}</div>
+                        <div class="feed-detail">${new Date(c.ts).toLocaleTimeString()} · ${c.c ? c.c.split(';').length : 0} cookies</div>
+                    </div>
+                    <span class="feed-badge">CAPTURED</span>
+                </div>
+            `).join('');
+        }
+        
+        setInterval(render, 1000);
+        render();
+    </script>
+</body>
+</html>

